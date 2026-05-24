@@ -4,82 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Altivare Group | Portfólio Social Media</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Owl Carousel CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    
-    <style>
-        /* Custom Colors matching the provided image palette & logo */
-        :root {
-            --bg-deep: #210d33;
-            --bg-dark: #31154c;
-            --bg-card: #451f66;
-            --primary: #8a4cb8;
-            --accent-light: #dcb6ff;
-            --accent-soft: #b37de6;
-            --text-light: #f3ebfa;
-        }
-
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-light);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        /* Glassmorphism for Fixed Overlapping Navbar */
-        .glass-nav {
-            background: rgba(33, 13, 51, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(220, 182, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .glass-nav.scrolled {
-            background: rgba(21, 8, 33, 0.95);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-        }
-
-        /* Owl Carousel Custom Navigation Dots */
-        .owl-theme .owl-dots .owl-dot span {
-            background: rgba(220, 182, 255, 0.3) !important;
-        }
-        .owl-theme .owl-dots .owl-dot.active span {
-            background: var(--accent-light) !important;
-            width: 24px;
-            transition: all 0.3s ease;
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-deep);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-soft);
-        }
-    </style>
 </head>
 <body class="overflow-x-hidden">
-
-    <!-- NAVBAR (Sobrepõe a página e acompanha o scroll) -->
     <nav class="glass-nav fixed top-0 left-0 w-full z-50 py-5 px-6 md:px-12 flex justify-between items-center">
-        <!-- Logo Area -->
         <div class="flex items-center space-x-3">
-            <!-- Representação SVG Minimalista Baseada na Logo Enviada -->
             <div class="w-8 h-8 flex flex-wrap gap-0.5 transform rotate-45 justify-center items-center">
                 <div class="w-2 h-2 bg-[#dcb6ff] rounded-sm"></div>
                 <div class="w-2 h-2 bg-[#b37de6] rounded-sm"></div>
@@ -88,8 +20,6 @@
             </div>
             <span class="text-xl font-bold tracking-wider text-white">ALTIVARE <span class="font-light text-[#dcb6ff] text-sm tracking-widest block -mt-1">GROUP</span></span>
         </div>
-
-        <!-- Desktop Menu -->
         <div class="hidden md:flex space-x-8 font-medium tracking-wide">
             <a href="#home" class="hover:text-[#dcb6ff] text-white transition duration-300">Início</a>
             <a href="#sobre" class="hover:text-[#dcb6ff] text-gray-300 transition duration-300">Sobre Nós</a>
@@ -98,21 +28,16 @@
             <a href="#portfolio" class="hover:text-[#dcb6ff] text-gray-300 transition duration-300">Portfólio</a>
             <a href="#contato" class="hover:text-[#dcb6ff] text-gray-300 transition duration-300">Contato</a>
         </div>
-
-        <!-- CTA Button -->
         <div class="hidden md:block">
             <a href="#contato" class="bg-gradient-to-r from-[#8a4cb8] to-[#b37de6] text-white px-6 py-2.5 rounded-full font-semibold shadow-lg hover:shadow-[#8a4cb8]/30 hover:scale-105 transition duration-300 text-sm">
                 Alavancar Perfil
             </a>
         </div>
-
-        <!-- Mobile Menu Button -->
         <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none text-2xl">
             <i class="fa-solid fa-bars-staggered"></i>
         </button>
     </nav>
 
-    <!-- Mobile Menu Dropdown -->
     <div id="mobile-menu" class="hidden fixed top-[73px] left-0 w-full bg-[#210d33]/95 backdrop-blur-lg border-b border-purple-900/40 z-40 py-6 px-6 flex flex-col space-y-4">
         <a href="#home" class="mobile-link text-white text-lg font-medium">Início</a>
         <a href="#sobre" class="mobile-link text-gray-300 text-lg font-medium">Sobre Nós</a>
@@ -123,15 +48,10 @@
         <a href="#contato" class="mobile-link bg-gradient-to-r from-[#8a4cb8] to-[#b37de6] text-white text-center py-3 rounded-xl font-semibold">Fale Conosco</a>
     </div>
 
-
-    <!-- HERO SECTION -->
     <section id="home" class="min-h-screen pt-32 flex items-center justify-center px-6 md:px-12 relative overflow-hidden bg-gradient-to-b from-[#210d33] via-[#31154c] to-[#210d33]">
-        <!-- Background Orbs -->
         <div class="absolute top-1/4 left-1/10 w-96 h-96 bg-[#8a4cb8]/10 rounded-full blur-[120px] pointer-events-none"></div>
         <div class="absolute bottom-10 right-1/10 w-80 h-80 bg-[#dcb6ff]/5 rounded-full blur-[100px] pointer-events-none"></div>
-
         <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center z-10">
-            <!-- Content Left -->
             <div class="space-y-6 text-center md:text-left">
                 <span class="inline-block bg-[#451f66] text-[#dcb6ff] border border-purple-500/30 text-xs uppercase tracking-widest font-bold px-4 py-1.5 rounded-full">
                     Agência de Performance & Posicionamento
@@ -184,12 +104,9 @@
         </div>
     </section>
 
-
-    <!-- SOBRE NÓS -->
-    <section id="sobre" class="py-24 px-6 md:px-12 bg-[#210d33] relative">
+    <section id="sobre" class="min-h-screen px-6 md:px-12 bg-[#210d33] relative flex items-center justify-center py-12">
         <div class="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div class="relative order-2 md:order-1">
-                <!-- Decorative Layered Blocks using the palette -->
                 <div class="absolute -top-4 -left-4 w-full h-full bg-[#451f66] rounded-2xl -z-10 transform -rotate-2"></div>
                 <div class="bg-gradient-to-br from-[#31154c] to-[#210d33] border border-purple-500/30 p-8 rounded-2xl shadow-xl space-y-6">
                     <h3 class="text-xl font-bold text-white flex items-center gap-3">
@@ -235,10 +152,8 @@
         </div>
     </section>
 
-
-    <!-- SERVIÇOS -->
-    <section id="servicos" class="py-24 px-6 md:px-12 bg-gradient-to-b from-[#210d33] to-[#31154c]">
-        <div class="max-w-6xl w-full mx-auto text-center space-y-4 mb-16">
+    <section id="servicos" class="min-h-screen px-6 md:px-12 bg-gradient-to-b from-[#210d33] to-[#31154c] flex flex-col justify-center py-12">
+        <div class="max-w-6xl w-full mx-auto text-center space-y-4 mb-12">
             <span class="text-[#b37de6] font-bold text-sm uppercase tracking-wider">O Que Fazemos</span>
             <h2 class="text-3xl md:text-5xl font-extrabold text-white">Nossas Soluções de Crescimento</h2>
             <p class="text-gray-300 max-w-2xl mx-auto text-sm md:text-base">
@@ -247,7 +162,6 @@
         </div>
 
         <div class="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Card 1 -->
             <div class="bg-[#451f66]/40 border border-purple-500/20 p-8 rounded-2xl hover:border-[#b37de6] transition duration-300 space-y-4 group">
                 <div class="w-12 h-12 rounded-xl bg-[#8a4cb8]/30 flex items-center justify-center text-xl text-[#dcb6ff] group-hover:bg-[#8a4cb8] transition duration-300">
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
@@ -258,7 +172,6 @@
                 </p>
             </div>
 
-            <!-- Card 2 -->
             <div class="bg-[#451f66]/40 border border-purple-500/20 p-8 rounded-2xl hover:border-[#b37de6] transition duration-300 space-y-4 group">
                 <div class="w-12 h-12 rounded-xl bg-[#8a4cb8]/30 flex items-center justify-center text-xl text-[#dcb6ff] group-hover:bg-[#8a4cb8] transition duration-300">
                     <i class="fa-solid fa-chart-line"></i>
@@ -269,7 +182,6 @@
                 </p>
             </div>
 
-            <!-- Card 3 -->
             <div class="bg-[#451f66]/40 border border-purple-500/20 p-8 rounded-2xl hover:border-[#b37de6] transition duration-300 space-y-4 group">
                 <div class="w-12 h-12 rounded-xl bg-[#8a4cb8]/30 flex items-center justify-center text-xl text-[#dcb6ff] group-hover:bg-[#8a4cb8] transition duration-300">
                     <i class="fa-solid fa-clapperboard"></i>
@@ -282,13 +194,10 @@
         </div>
     </section>
 
-
-    <!-- RESULTADOS / DATA ANALYTICS (Chart.js Integration) -->
-    <section id="resultados" class="py-24 px-6 md:px-12 bg-[#210d33] relative">
+    <section id="resultados" class="min-h-screen px-6 md:px-12 bg-[#210d33] relative flex items-center justify-center py-12">
         <div class="max-w-6xl w-full mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
                 
-                <!-- Info Text Left -->
                 <div class="lg:col-span-1 space-y-6">
                     <span class="text-[#b37de6] font-bold text-sm uppercase tracking-wider block">Métricas Comprovadas</span>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white">Nossos dados mostram o caminho.</h2>
@@ -302,7 +211,6 @@
                     </div>
                 </div>
 
-                <!-- Comprehensive Chart Right -->
                 <div class="lg:col-span-2 bg-[#31154c]/60 p-6 md:p-8 rounded-2xl border border-purple-500/20 shadow-xl">
                     <div class="flex justify-between items-center mb-6">
                         <h4 class="text-lg font-bold text-white flex items-center gap-2">
@@ -319,10 +227,8 @@
         </div>
     </section>
 
-
-    <!-- PORTFÓLIO / CASES (Owl Carousel Integration) -->
-    <section id="portfolio" class="py-24 px-6 md:px-12 bg-gradient-to-b from-[#210d33] to-[#31154c]">
-        <div class="max-w-6xl w-full mx-auto text-center space-y-4 mb-16">
+    <section id="portfolio" class="min-h-screen px-6 md:px-12 bg-gradient-to-b from-[#210d33] to-[#31154c] flex flex-col justify-center py-12">
+        <div class="max-w-6xl w-full mx-auto text-center space-y-4 mb-12">
             <span class="text-[#b37de6] font-bold text-sm uppercase tracking-wider">Cases & Estética</span>
             <h2 class="text-3xl md:text-5xl font-extrabold text-white">Identidades Visuais e Feeds Criados</h2>
             <p class="text-gray-300 max-w-xl mx-auto text-xs md:text-sm">
@@ -330,11 +236,9 @@
             </p>
         </div>
 
-        <!-- Carousel Container -->
         <div class="max-w-6xl w-full mx-auto">
             <div class="owl-carousel owl-theme portfolio-carousel">
                 
-                <!-- Project Item 1 -->
                 <div class="bg-[#210d33] p-4 rounded-2xl border border-purple-500/10 shadow-lg space-y-4">
                     <div class="w-full h-64 bg-gradient-to-br from-[#451f66] to-[#8a4cb8] rounded-xl flex items-center justify-center relative overflow-hidden group">
                         <i class="fa-solid fa-gem text-5xl text-white/30 group-hover:scale-110 transition duration-500"></i>
@@ -346,7 +250,6 @@
                     </div>
                 </div>
 
-                <!-- Project Item 2 -->
                 <div class="bg-[#210d33] p-4 rounded-2xl border border-purple-500/10 shadow-lg space-y-4">
                     <div class="w-full h-64 bg-gradient-to-br from-[#31154c] to-[#b37de6] rounded-xl flex items-center justify-center relative overflow-hidden group">
                         <i class="fa-solid fa-handshake-simple text-5xl text-white/30 group-hover:scale-110 transition duration-500"></i>
@@ -358,7 +261,6 @@
                     </div>
                 </div>
 
-                <!-- Project Item 3 -->
                 <div class="bg-[#210d33] p-4 rounded-2xl border border-purple-500/10 shadow-lg space-y-4">
                     <div class="w-full h-64 bg-gradient-to-br from-[#8a4cb8] to-[#210d33] rounded-xl flex items-center justify-center relative overflow-hidden group">
                         <i class="fa-solid fa-cake-candles text-5xl text-white/30 group-hover:scale-110 transition duration-500"></i>
@@ -370,7 +272,6 @@
                     </div>
                 </div>
 
-                <!-- Project Item 4 -->
                 <div class="bg-[#210d33] p-4 rounded-2xl border border-purple-500/10 shadow-lg space-y-4">
                     <div class="w-full h-64 bg-gradient-to-br from-[#451f66] to-[#31154c] rounded-xl flex items-center justify-center relative overflow-hidden group">
                         <i class="fa-solid fa-snowflake text-5xl text-white/30 group-hover:scale-110 transition duration-500"></i>
@@ -386,9 +287,7 @@
         </div>
     </section>
 
-
-    <!-- CONTATO -->
-    <section id="contato" class="py-24 px-6 md:px-12 bg-[#210d33] relative">
+    <section id="contato" class="min-h-screen px-6 md:px-12 bg-[#210d33] relative flex items-center justify-center py-12">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#8a4cb8]/10 rounded-full blur-[150px] pointer-events-none"></div>
 
         <div class="max-w-4xl w-full mx-auto bg-gradient-to-br from-[#31154c] to-[#210d33] border border-purple-500/20 p-8 md:p-12 rounded-3xl shadow-2xl z-10 relative">
@@ -399,7 +298,6 @@
                 </p>
             </div>
 
-            <!-- Form -->
             <form id="contactForm" class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
@@ -434,156 +332,89 @@
         </div>
     </section>
 
+    <footer id="animated-footer" class="bg-[#11061a] border-t border-purple-950/60 text-gray-400 text-sm pt-16 pb-8 px-6 md:px-12 relative overflow-hidden opacity-0 translate-y-10 transition-all duration-1000 ease-out group/footer">
+        
+        <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-[#8a4cb8]/5 rounded-full blur-[100px] pointer-events-none animate-pulse duration-[4s]"></div>
+        
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-[#31154c]/30 rounded-full blur-[120px] pointer-events-none animate-bounce duration-[8s] opacity-60"></div>
 
-    <!-- FOOTER -->
-    <footer class="bg-[#150821] py-12 px-6 md:px-12 border-t border-purple-950 text-center text-gray-400 text-sm space-y-4">
-        <div class="flex justify-center items-center space-x-3">
-            <div class="w-6 h-6 flex flex-wrap gap-0.5 transform rotate-45 justify-center items-center opacity-70">
-                <div class="w-1.5 h-1.5 bg-[#dcb6ff] rounded-sm"></div>
-                <div class="w-1.5 h-1.5 bg-[#b37de6] rounded-sm"></div>
-                <div class="w-1.5 h-1.5 bg-[#8a4cb8] rounded-sm"></div>
-                <div class="w-1.5 h-1.5 bg-[#451f66] rounded-sm"></div>
+        <div class="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 border-b border-purple-950/40 pb-12 mb-8">
+            
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3 group/logo cursor-pointer">
+                    <div class="w-6 h-6 flex flex-wrap gap-0.5 transform rotate-45 justify-center items-center transition-transform duration-500 group-hover/logo:rotate-[135deg]">
+                        <div class="w-1.5 h-1.5 bg-[#dcb6ff] rounded-sm animate-pulse"></div>
+                        <div class="w-1.5 h-1.5 bg-[#b37de6] rounded-sm animate-pulse delay-75"></div>
+                        <div class="w-1.5 h-1.5 bg-[#8a4cb8] rounded-sm animate-pulse delay-150"></div>
+                        <div class="w-1.5 h-1.5 bg-[#451f66] rounded-sm"></div>
+                    </div>
+                    <span class="text-white font-bold tracking-widest text-base transition-colors duration-300 group-hover/logo:text-[#dcb6ff]">ALTIVARE <span class="text-xs text-purple-300 font-light block -mt-1 tracking-wider">GROUP</span></span>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed max-w-xs">
+                    Agência de posicionamento digital e performance para marcas que buscam liderar seus nichos através de design premium, tráfego focado em conversão e dados reais.
+                </p>
+                <div class="flex space-x-4 text-lg text-purple-300 pt-2">
+                    <a href="#" class="hover:text-white hover:-translate-y-1 active:scale-95 transition-all duration-300 ease-out"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-white hover:-translate-y-1 active:scale-95 transition-all duration-300 ease-out"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="hover:text-white hover:-translate-y-1 active:scale-95 transition-all duration-300 ease-out"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
             </div>
-            <span class="text-white font-bold tracking-widest text-base">ALTIVARE GROUP</span>
+
+            <div class="space-y-4">
+                <h4 class="text-white font-semibold uppercase tracking-wider text-xs border-b border-purple-900/30 pb-2 w-16">Navegação</h4>
+                <ul class="space-y-2.5 text-xs">
+                    <li><a href="#home" class="hover:text-[#dcb6ff] hover:translate-x-1 transition-all duration-300 block">Início</a></li>
+                    <li><a href="#sobre" class="hover:text-[#dcb6ff] hover:translate-x-1 transition-all duration-300 block">Sobre Nós</a></li>
+                    <li><a href="#servicos" class="hover:text-[#dcb6ff] hover:translate-x-1 transition-all duration-300 block">Serviços</a></li>
+                    <li><a href="#resultados" class="hover:text-[#dcb6ff] hover:translate-x-1 transition-all duration-300 block">Resultados</a></li>
+                    <li><a href="#portfolio" class="hover:text-[#dcb6ff] hover:translate-x-1 transition-all duration-300 block">Portfólio</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="text-white font-semibold uppercase tracking-wider text-xs border-b border-purple-900/30 pb-2 w-16">Soluções</h4>
+                <ul class="space-y-2.5 text-xs text-gray-400">
+                    <li class="hover:text-[#b37de6] hover:translate-x-1 transition-all duration-300 cursor-pointer">Gestão de Redes Sociais</li>
+                    <li class="hover:text-[#b37de6] transition-all hover:translate-x-1 duration-300 cursor-pointer">Tráfego Pago Integrado</li>
+                    <li class="hover:text-[#b37de6] transition-all hover:translate-x-1 duration-300 cursor-pointer">Direção de Vídeos Curtos</li>
+                    <li class="hover:text-[#b37de6] transition-all hover:translate-x-1 duration-300 cursor-pointer">Identidade Visual Corporativa</li>
+                    <li class="hover:text-[#b37de6] transition-all hover:translate-x-1 duration-300 cursor-pointer">Consultoria de Posicionamento</li>
+                </ul>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="text-white font-semibold uppercase tracking-wider text-xs border-b border-purple-900/30 pb-2 w-16">Contato</h4>
+                <ul class="space-y-3 text-xs">
+                    <li class="flex items-center space-x-2.5 group/item cursor-pointer">
+                        <i class="fa-solid fa-envelope text-[#b37de6] text-sm transition-transform duration-300 group-hover/item:scale-125 group-hover/item:text-white"></i>
+                        <span class="transition-colors duration-300 group-hover/item:text-purple-200">contato@altivaregroup.com</span>
+                    </li>
+                    <li class="flex items-center space-x-2.5 group/item cursor-pointer">
+                        <i class="fa-solid fa-phone text-[#b37de6] text-sm transition-transform duration-300 group-hover/item:scale-125 group-hover/item:text-white"></i>
+                        <span class="transition-colors duration-300 group-hover/item:text-purple-200">(11) 99999-9999</span>
+                    </li>
+                    <li class="flex items-start space-x-2.5 group/item cursor-pointer">
+                        <i class="fa-solid fa-location-dot text-[#b37de6] text-sm mt-0.5 animate-bounce duration-1000 group-hover/item:text-white"></i>
+                        <span class="leading-relaxed transition-colors duration-300 group-hover/item:text-purple-200">São Paulo, SP<br><span class="text-gray-500 text-[10px]">Atendimento Nacional & Internacional</span></span>
+                    </li>
+                </ul>
+            </div>
+
         </div>
-        <p>&copy; 2026 Altivare Group. Todos os direitos reservados. Performance Digital de Alto Padrão.</p>
-        <div class="flex justify-center space-x-6 text-lg text-purple-300 pt-2">
-            <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" class="hover:text-white transition"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="#" class="hover:text-white transition"><i class="fa-brands fa-whatsapp"></i></a>
+
+        <div class="max-w-6xl w-full mx-auto flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 space-y-4 sm:space-y-0">
+            <p>&copy; 2026 Altivare Group. Todos os direitos reservados. Performance Digital de Alto Padrão.</p>
+            
+            <a href="#home" class="bg-[#210d33] border border-purple-900/60 hover:border-[#b37de6] text-purple-300 hover:text-white px-3 py-1.5 rounded-lg transition-all duration-300 flex items-center space-x-1.5 group/btn overflow-hidden relative shadow-[0_0_0_0_rgba(138,76,184,0)] hover:shadow-[0_0_15px_rgba(138,76,184,0.2)]">
+                <span>Voltar ao topo</span>
+                <i class="fa-solid fa-arrow-up text-[10px] transition-transform duration-300 group-hover/btn:-translate-y-1 group-hover/btn:animate-bounce"></i>
+            </a>
         </div>
     </footer>
 
-
-    <!-- SCRIPTS CORE: JQuery, Chart.js, Owl Carousel -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            
-            // 1. FIXED NAVBAR SCROLL EFFECT
-            $(window).scroll(function() {
-                if ($(this).scrollTop() > 50) {
-                    $('.glass-nav').addClass('scrolled');
-                } else {
-                    $('.glass-nav').removeClass('scrolled');
-                }
-            });
-
-            // 2. MOBILE MENU TOGGLE
-            $('#mobile-menu-btn').click(function() {
-                $('#mobile-menu').toggleClass('hidden');
-                $(this).find('i').toggleClass('fa-bars-staggered fa-xmark');
-            });
-
-            // Close mobile menu when link clicked
-            $('.mobile-link').click(function() {
-                $('#mobile-menu').addClass('hidden');
-                $('#mobile-menu-btn').find('i').addClass('fa-bars-staggered').removeClass('fa-xmark');
-            });
-
-
-            // 3. OWL CAROUSEL INITIALIZATION
-            $(".portfolio-carousel").owlCarousel({
-                loop: true,
-                margin: 24,
-                nav: false,
-                dots: true,
-                autoplay: true,
-                autoplayTimeout: 5000,
-                autoplayHoverPause: true,
-                responsive: {
-                    0: { items: 1 },
-                    640: { items: 2 },
-                    1024: { items: 3 }
-                }
-            });
-
-
-            // 4. CHART.JS - COMPREHENSIVE PERFORMANCE CHART
-            const ctxMain = document.getElementById('performanceChart').getContext('2d');
-            new Chart(ctxMain, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-                    datasets: [
-                        {
-                            label: 'Crescimento de Impressões (%)',
-                            data: [15, 38, 65, 82, 110, 145],
-                            borderColor: '#dcb6ff',
-                            backgroundColor: 'rgba(220, 182, 255, 0.1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4
-                        },
-                        {
-                            label: 'Conversões em Leads Direct',
-                            data: [5, 18, 29, 48, 62, 98],
-                            borderColor: '#8a4cb8',
-                            backgroundColor: 'rgba(138, 76, 184, 0.1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            labels: { color: '#f3ebfa', font: { size: 12 } }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            grid: { color: 'rgba(220, 182, 255, 0.05)' },
-                            ticks: { color: '#f3ebfa' }
-                        },
-                        y: {
-                            grid: { color: 'rgba(220, 182, 255, 0.05)' },
-                            ticks: { color: '#f3ebfa' }
-                        }
-                    }
-                }
-            });
-
-
-            // 5. CHART.JS - MINI HERO CHART
-            const ctxMini = document.getElementById('heroMiniChart').getContext('2d');
-            new Chart(ctxMini, {
-                type: 'bar',
-                data: {
-                    labels: ['S1', 'S2', 'S3', 'S4'],
-                    datasets: [{
-                        label: 'Retenção de Vídeo',
-                        data: [42, 68, 85, 93],
-                        backgroundColor: '#b37de6',
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { grid: { display: false }, ticks: { color: '#b37de6', font: { size: 10 } } },
-                        y: { grid: { display: false }, ticks: { display: false } }
-                    }
-                }
-            });
-
-
-            // 6. FORM SUBMISSION MOCK
-            $('#contactForm').submit(function(e) {
-                e.preventDefault();
-                alert('Solicitação enviada com sucesso ao Altivare Group! Nossa equipe entrará em contato em breve.');
-                this.reset();
-            });
-
-        });
-    </script>
+    <script src="./public/js/script.js"></script>
 </body>
 </html>

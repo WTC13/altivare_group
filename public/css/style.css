@@ -1,0 +1,54 @@
+:root {
+    --bg-deep: #210d33;
+    --bg-dark: #31154c;
+    --bg-card: #451f66;
+    --primary: #8a4cb8;
+    --accent-light: #dcb6ff;
+    --accent-soft: #b37de6;
+    --text-light: #f3ebfa;
+}
+
+body {
+    background-color: var(--bg-deep);
+    color: var(--text-light);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+}
+
+.glass-nav {
+    background: rgba(33, 13, 51, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(220, 182, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.glass-nav.scrolled {
+    background: rgba(21, 8, 33, 0.95);
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.owl-theme .owl-dots .owl-dot span {
+    background: rgba(220, 182, 255, 0.3) !important;
+}
+.owl-theme .owl-dots .owl-dot.active span {
+    background: var(--accent-light) !important;
+    width: 24px;
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-soft);
+}
