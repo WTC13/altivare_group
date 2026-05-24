@@ -8,6 +8,11 @@
     --text-light: #f3ebfa;
 }
 
+html {
+    scroll-behavior: smooth !important;
+    scroll-padding-top: 80px !important;
+}
+
 body {
     background-color: var(--bg-deep);
     color: var(--text-light);
