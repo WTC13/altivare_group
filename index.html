@@ -317,23 +317,23 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label class="text-xs text-purple-300 font-bold uppercase tracking-wider block">Seu Nome</label>
-                        <input type="text" required class="w-full bg-[#210d33] border border-purple-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#b37de6] focus:ring-1 focus:ring-[#b37de6]/30 shadow-inner transition-all duration-200 text-sm" placeholder="Ex: Roberto Silva">
+                        <input type="text" name="nome" required class="w-full bg-[#210d33] border border-purple-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#b37de6] focus:ring-1 focus:ring-[#b37de6]/30 shadow-inner transition-all duration-200 text-sm" placeholder="Ex: Roberto Silva">
                     </div>
                     <div class="space-y-2">
                         <label class="text-xs text-purple-300 font-bold uppercase tracking-wider block">WhatsApp Corporativo</label>
-                        <input type="tel" required class="w-full bg-[#210d33] border border-purple-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#b37de6] focus:ring-1 focus:ring-[#b37de6]/30 shadow-inner transition-all duration-200 text-sm" placeholder="(11) 99999-9999">
+                        <input type="tel" name="whatsapp" required class="w-full bg-[#210d33] border border-purple-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#b37de6] focus:ring-1 focus:ring-[#b37de6]/30 shadow-inner transition-all duration-200 text-sm" placeholder="(11) 99999-9999">
                     </div>
                 </div>
 
                 <div class="space-y-2">
                     <label class="text-xs text-purple-300 font-bold uppercase tracking-wider block">Instagram da Empresa</label>
-                    <input type="text" required class="w-full bg-[#210d33] border border-purple-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#b37de6] focus:ring-1 focus:ring-[#b37de6]/30 shadow-inner transition-all duration-200 text-sm" placeholder="@suaempresa">
+                    <input type="text" name="instagram" required class="w-full bg-[#210d33] border border-purple-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#b37de6] focus:ring-1 focus:ring-[#b37de6]/30 shadow-inner transition-all duration-200 text-sm" placeholder="@suaempresa">
                 </div>
 
                 <div class="space-y-2">
                     <label class="text-xs text-purple-300 font-bold uppercase tracking-wider block">Qual seu principal objetivo atual?</label>
                     <div class="relative">
-                        <select class="w-full bg-[#210d33] border border-purple-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#b37de6] focus:ring-1 focus:ring-[#b37de6]/30 transition-all duration-200 text-sm appearance-none cursor-pointer">
+                        <select name="objetivo" class="w-full bg-[#210d33] border border-purple-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#b37de6] focus:ring-1 focus:ring-[#b37de6]/30 transition-all duration-200 text-sm appearance-none cursor-pointer">
                             <option>Aumentar minhas vendas diretas/leads</option>
                             <option>Melhorar o posicionamento estético da marca</option>
                             <option>Ter consistência em vídeos (Reels/TikTok)</option>
@@ -345,8 +345,8 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-gradient-to-r from-[#8a4cb8] via-[#b37de6] to-[#8a4cb8] bg-[length:200%_auto] text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-purple-500/30 hover:bg-right active:scale-[0.98] transition-all duration-500 tracking-wide text-sm group flex items-center justify-center gap-2">
-                    Enviar Solicitação para Altivare Group 
+                <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-[#8a4cb8] via-[#b37de6] to-[#8a4cb8] bg-[length:200%_auto] text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-purple-500/30 hover:bg-right active:scale-[0.98] transition-all duration-500 tracking-wide text-sm group flex items-center justify-center gap-2">
+                    Enviar Solicitação para Altivare Group
                     <i class="fa-solid fa-paper-plane text-xs transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5"></i>
                 </button>
             </form>
@@ -439,6 +439,10 @@
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./public/js/script.js"></script>
 </body>

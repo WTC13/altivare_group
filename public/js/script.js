@@ -102,10 +102,110 @@ $(document).ready(function() {
         }
     });
 
-    $('#contactForm').submit(function(e) {
+    // ─────────────────────────────────────────────
+    // CONFIGURAÇÃO EMAILJS
+    // 1. Crie conta gratuita em: https://www.emailjs.com/
+    // 2. Crie um Email Service conectado ao Gmail (altivaregroup@gmail.com)
+    // 3. Crie um Email Template com as variáveis: {{nome}}, {{whatsapp}}, {{instagram}}, {{objetivo}}
+    // 4. Substitua os 3 valores abaixo pelos seus IDs reais
+    // ─────────────────────────────────────────────
+    const EMAILJS_PUBLIC_KEY  = 'SEU_PUBLIC_KEY_AQUI';   // Account > API Keys
+    const EMAILJS_SERVICE_ID  = 'SEU_SERVICE_ID_AQUI';   // Email Services > Service ID
+    const EMAILJS_TEMPLATE_ID = 'SEU_TEMPLATE_ID_AQUI';  // Email Templates > Template ID
+
+    const WHATSAPP_NUMBER = '5511920514195'; // Número do responsável (com DDI 55)
+
+    // Inicializa EmailJS
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+
+    // ─────────────────────────────────────────────
+    // SUBMIT DO FORMULÁRIO
+    // ─────────────────────────────────────────────
+    document.getElementById('contactForm').addEventListener('submit', async function (e) {
         e.preventDefault();
-        alert('Solicitação enviada com sucesso ao Altivare Group! Nossa equipe entrará em contato em breve.');
-        this.reset();
+
+        const form    = this;
+        const btn     = document.getElementById('submitBtn');
+        const nome    = form.nome.value.trim();
+        const wpp     = form.whatsapp.value.trim();
+        const insta   = form.instagram.value.trim();
+        const obj     = form.objetivo.value;
+
+        // Loading
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> Enviando...';
+
+        Swal.fire({
+            title: 'Enviando sua solicitação...',
+            text: 'Aguarde um momento.',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            background: '#31154c',
+            color: '#e9d5ff',
+            didOpen: () => Swal.showLoading(),
+        });
+
+        try {
+            // ── 1. Envia e-mail via EmailJS ──
+            await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                nome:      nome,
+                whatsapp:  wpp,
+                instagram: insta,
+                objetivo:  obj,
+            });
+
+            // ── 2. Monta mensagem do WhatsApp ──
+            const msgWpp = encodeURIComponent(
+                `Olá, Altivare Group! 👋\n\nMeu nome é *${nome}* e gostaria de solicitar uma *avaliação gratuita* para minha empresa.\n\n📱 Instagram: ${insta}\n📞 Meu WhatsApp: ${wpp}\n🎯 Objetivo: ${obj}\n\nAguardo o contato da equipe. Obrigado!`
+            );
+            const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${msgWpp}`;
+
+            // ── 3. Sucesso — SweetAlert2 ──
+            await Swal.fire({
+                icon: 'success',
+                title: 'Solicitação enviada! 🚀',
+                html: `
+                    <p style="color:#e9d5ff; font-size:0.9rem; margin-bottom:12px;">
+                        <strong>${nome}</strong>, seu formulário chegou ao Altivare Group com sucesso!<br><br>
+                        Agora você será redirecionado ao WhatsApp para confirmar sua avaliação gratuita. 😊
+                    </p>
+                `,
+                confirmButtonText: 'Ir para o WhatsApp →',
+                background: '#31154c',
+                color: '#e9d5ff',
+                confirmButtonColor: '#8a4cb8',
+                iconColor: '#b37de6',
+            });
+
+            // ── 4. Redireciona para WhatsApp ──
+            window.open(whatsappURL, '_blank');
+
+            // ── 5. Reseta o formulário ──
+            form.reset();
+
+        } catch (error) {
+            console.error('Erro ao enviar:', error);
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Ops! Algo deu errado.',
+                html: `
+                    <p style="color:#e9d5ff; font-size:0.9rem;">
+                        Não foi possível enviar sua solicitação agora.<br>
+                        Tente novamente ou entre em contato diretamente pelo WhatsApp. 🙏
+                    </p>
+                `,
+                confirmButtonText: 'Fechar',
+                background: '#31154c',
+                color: '#e9d5ff',
+                confirmButtonColor: '#8a4cb8',
+                iconColor: '#f87171',
+            });
+        } finally {
+            // Restaura botão
+            btn.disabled = false;
+            btn.innerHTML = 'Enviar Solicitação para Altivare Group <i class="fa-solid fa-paper-plane text-xs"></i>';
+        }
     });
 });
 
