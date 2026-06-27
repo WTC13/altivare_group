@@ -104,15 +104,90 @@ $(document).ready(function() {
 
     $('#contactForm').submit(function(e) {
         e.preventDefault();
-        alert('Solicitação enviada com sucesso ao Altivare Group! Nossa equipe entrará em contato em breve.');
-        this.reset();
+
+        // 1. Captura os valores dos campos para usar na mensagem do WhatsApp
+        const nome = $('input[name="name"]').val() || 'Cliente';
+        const email = $('input[name="email"]').val() || 'Não informado';
+        const mensagemCliente = $('textarea[name="message"]').val() || '';
+
+        // Exibe o loader do SweetAlert avisando que está enviando
+        Swal.fire({
+            title: 'Enviando sua solicitação...',
+            text: 'Por favor, aguarde um momento.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        // 2. Prepara os dados para o Web3Forms
+        // O FormData captura automaticamente todos os inputs dentro do form (incluindo a access_key)
+        const formData = new FormData(this);
+
+        // Envia a requisição via Fetch API (nativo e moderno)
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+        })
+        .then(async (response) => {
+            let json = await response.json();
+            
+            if (response.status == 200) {
+                // E-mail enviado com sucesso! Agora exibe o SweetAlert perguntando sobre o WhatsApp
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Solicitação Enviada!',
+                    text: 'Sua mensagem foi recebida com sucesso pelo Altivare Group. Quer falar conosco imediatamente pelo WhatsApp?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ir para o WhatsApp',
+                    cancelButtonText: 'Fechar',
+                    confirmButtonColor: '#25D366',
+                }).then((result) => {
+                   
+                    if (result.isConfirmed) {
+                        const numeroWhats = '5511920514195';
+                        
+                        let textoWhats = `Olá! Acabei de enviar o formulário no site.\n\n`;
+                        textoWhats += `*Nome:* ${nome}\n`;
+                        textoWhats += `*E-mail:* ${email}\n`;
+                        if(mensagemCliente) textoWhats += `*Mensagem:* ${mensagemCliente}`;
+
+                        // Codifica o texto para formato de URL
+                        const textoEncoded = encodeURIComponent(textoWhats);
+                        const urlWhatsapp = `https://wa.me/${numeroWhats}?text=${textoEncoded}`;
+
+                        // Abre o WhatsApp em uma nova aba
+                        window.open(urlWhatsapp, '_blank');
+                    }
+                });
+
+                // Reseta o formulário após o sucesso
+                this.reset();
+            } else {
+                // Se o Web3Forms responder com algum erro interno (ex: chave inválida)
+                console.log(json);
+                throw new Error(json.message);
+            }
+        })
+        .catch((error) => {
+            console.error('Erro ao enviar:', error);
+            
+            Swal.fire({
+                icon: 'error',
+                title: 'Ops...',
+                text: 'Houve um problema ao enviar o e-mail, mas você pode nos chamar direto no WhatsApp!',
+                confirmButtonText: 'Chamar no WhatsApp'
+            }).then(() => {
+                const numeroWhats = '5511920514195';
+                window.open(`https://wa.me/${numeroWhats}?text=Olá, tentei enviar o formulário no site mas deu erro. Quero atendimento!`, '_blank');
+            });
+        });
     });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
     const navbar = document.getElementById("main-navbar");
 
-    // 1. Animação de entrada da Navbar ao carregar a página
     setTimeout(() => {
         if (navbar) {
             navbar.classList.remove("opacity-0", "-translate-y-4");
@@ -120,7 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }, 100);
 
-    // 2. Escurecer a Navbar ao rolar a página
     window.addEventListener("scroll", () => {
         if (navbar) {
             if (window.scrollY > 50) {
@@ -133,26 +207,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 3. ROLAGEM SUAVE (Versão Corrigida e Ampla)
-    // Captura TODOS os links da página que apontam para um ID (ex: #sobre, #servicos)
     const linksInternos = document.querySelectorAll('a[href^="#"]');
 
     linksInternos.forEach(link => {
         link.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
             
-            // Ignora links vazios como href="#" (ex: botões de redes sociais)
             if (targetId === "#" || targetId === "") return;
 
             const targetSection = document.querySelector(targetId);
 
             if (targetSection) {
-                e.preventDefault(); // Impede o salto seco original do navegador
-
-                // Pega a altura da navbar dinamicamente (se não achar, usa 75px como padrão)
+                e.preventDefault(); 
                 const navbarHeight = navbar ? navbar.offsetHeight : 75;
                 
-                // Calcula a posição final descontando o topo fixo da barra
                 const targetPosition = targetSection.offsetTop - navbarHeight;
 
                 window.scrollTo({
@@ -187,23 +255,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const sobreObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Ativa o card vindo da esquerda
                 sobreCard.classList.remove("opacity-0", "-translate-x-12");
                 sobreCard.classList.add("opacity-100", "translate-x-0");
 
-                // Ativa o texto vindo da direita
                 sobreTexto.classList.remove("opacity-0", "translate-x-12");
                 sobreTexto.classList.add("opacity-100", "translate-y-0");
 
-                // Para de observar para a animação acontecer apenas uma vez
                 sobreObserver.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.2 // Dispara quando 20% da seção sobre aparecer na tela
+        threshold: 0.2
     });
 
-    // Como o container engloba ambos, observamos o elemento pai direto (a section)
     const sobreSection = document.getElementById("sobre");
     if (sobreSection) {
         sobreObserver.observe(sobreSection);
@@ -217,24 +281,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const servicosObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // 1. Ativa o Cabeçalho da seção
                 servicosHeader.classList.remove("opacity-0", "-translate-y-8");
                 servicosHeader.classList.add("opacity-100", "translate-y-0");
 
-                // 2. Ativa os cards em efeito cascata (um após o outro)
                 servicosCards.forEach((card, index) => {
                     setTimeout(() => {
                         card.classList.remove("opacity-0", "translate-y-12", "scale-95");
                         card.classList.add("opacity-100", "translate-y-0", "scale-100");
-                    }, index * 200); // 200ms de atraso entre cada card
+                    }, index * 200);
                 });
 
-                // Para de observar para a animação ocorrer apenas uma vez
                 servicosObserver.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.15 // Dispara quando 15% da seção estiver na tela
+        threshold: 0.15
     });
 
     const servicosSection = document.getElementById("servicos");
@@ -250,23 +311,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultadosObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // 1. Faz os textos subirem de forma suave
                 resTexto.classList.remove("opacity-0", "translate-y-12");
                 resTexto.classList.add("opacity-100", "translate-y-0");
 
-                // 2. Faz o bloco do gráfico expandir com zoom sutil
                 resGrafico.classList.remove("opacity-0", "scale-95");
                 resGrafico.classList.add("opacity-100", "scale-100");
 
-                // Opcional: Se o seu gráfico de Chart.js tiver animação interna, 
-                // você pode chamar a função de renderização do gráfico exatamente aqui dentro!
-
-                // Para de observar para a animação rodar de forma limpa uma única vez
                 resultadosObserver.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.15 // Dispara quando 15% da seção estiver visível
+        threshold: 0.15
     });
 
     const resultadosSection = document.getElementById("resultados");
@@ -282,20 +337,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const portfolioObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Ativa o cabeçalho descendo
                 portHeader.classList.remove("opacity-0", "-translate-y-6");
                 portHeader.classList.add("opacity-100", "translate-y-0");
 
-                // Ativa o carrossel inteiro subindo com suavidade
                 portCarousel.classList.remove("opacity-0", "translate-y-6");
                 portCarousel.classList.add("opacity-100", "translate-y-0");
 
-                // Desativa o observer para manter a performance estável
                 portfolioObserver.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.15 // Inicia quando 15% da seção estiver na tela
+        threshold: 0.15
     });
 
     const portfolioSection = document.getElementById("portfolio");
@@ -310,16 +362,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const contatoObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Remove o estado encolhido e invisível, trazendo o card para frente
                 contatoCard.classList.remove("opacity-0", "scale-95");
                 contatoCard.classList.add("opacity-100", "scale-100");
 
-                // Encerra a observação para otimizar o desempenho do navegador
                 contatoObserver.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.15 // Dispara quando 15% da seção de contato estiver visível
+        threshold: 0.15
     });
 
     const contatoSection = document.getElementById("contato");
