@@ -102,86 +102,110 @@ $(document).ready(function() {
         }
     });
 
-    $('#contactForm').submit(function(e) {
+    // ─────────────────────────────────────────────
+    // CONFIGURAÇÃO EMAILJS
+    // 1. Crie conta gratuita em: https://www.emailjs.com/
+    // 2. Crie um Email Service conectado ao Gmail (altivaregroup@gmail.com)
+    // 3. Crie um Email Template com as variáveis: {{nome}}, {{whatsapp}}, {{instagram}}, {{objetivo}}
+    // 4. Substitua os 3 valores abaixo pelos seus IDs reais
+    // ─────────────────────────────────────────────
+    const EMAILJS_PUBLIC_KEY  = 'zSdvNmYne9naRgQjm';   // Account > API Keys
+    const EMAILJS_SERVICE_ID  = 'service_o4kw1u9';   // Email Services > Service ID
+    const EMAILJS_TEMPLATE_ID = 'template_n1psx9d';  // Email Templates > Template ID
+
+    const WHATSAPP_NUMBER = '5511920514195'; // Número do responsável (com DDI 55)
+
+    // Inicializa EmailJS
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+
+    // ─────────────────────────────────────────────
+    // SUBMIT DO FORMULÁRIO
+    // ─────────────────────────────────────────────
+    document.getElementById('contactForm').addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        // 1. Captura os valores dos campos para usar na mensagem do WhatsApp
-        const nome = $('input[name="name"]').val() || 'Cliente';
-        const email = $('input[name="email"]').val() || 'Não informado';
-        const mensagemCliente = $('textarea[name="message"]').val() || '';
+        const form    = this;
+        const btn     = document.getElementById('submitBtn');
+        const nome    = form.nome.value.trim();
+        const wpp     = form.whatsapp.value.trim();
+        const insta   = form.instagram.value.trim();
+        const obj     = form.objetivo.value;
 
-        // Exibe o loader do SweetAlert avisando que está enviando
+        // Loading
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> Enviando...';
+
         Swal.fire({
             title: 'Enviando sua solicitação...',
-            text: 'Por favor, aguarde um momento.',
+            text: 'Aguarde um momento.',
             allowOutsideClick: false,
-            didOpen: () => {
-                Swal.showLoading();
-            }
+            allowEscapeKey: false,
+            background: '#31154c',
+            color: '#e9d5ff',
+            didOpen: () => Swal.showLoading(),
         });
 
-        // 2. Prepara os dados para o Web3Forms
-        // O FormData captura automaticamente todos os inputs dentro do form (incluindo a access_key)
-        const formData = new FormData(this);
+        try {
+            // ── 1. Envia e-mail via EmailJS ──
+            await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                nome:      nome,
+                whatsapp:  wpp,
+                instagram: insta,
+                objetivo:  obj,
+            });
 
-        // Envia a requisição via Fetch API (nativo e moderno)
-        fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            body: formData
-        })
-        .then(async (response) => {
-            let json = await response.json();
-            
-            if (response.status == 200) {
-                // E-mail enviado com sucesso! Agora exibe o SweetAlert perguntando sobre o WhatsApp
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Solicitação Enviada!',
-                    text: 'Sua mensagem foi recebida com sucesso pelo Altivare Group. Quer falar conosco imediatamente pelo WhatsApp?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Ir para o WhatsApp',
-                    cancelButtonText: 'Fechar',
-                    confirmButtonColor: '#25D366',
-                }).then((result) => {
-                   
-                    if (result.isConfirmed) {
-                        const numeroWhats = '5511920514195';
-                        
-                        let textoWhats = `Olá! Acabei de enviar o formulário no site.\n\n`;
-                        textoWhats += `*Nome:* ${nome}\n`;
-                        textoWhats += `*E-mail:* ${email}\n`;
-                        if(mensagemCliente) textoWhats += `*Mensagem:* ${mensagemCliente}`;
+            // ── 2. Monta mensagem do WhatsApp ──
+            const msgWpp = encodeURIComponent(
+                `Olá, Altivare Group! \n\nMeu nome é *${nome}* e gostaria de solicitar uma *avaliação gratuita* para minha empresa.\n\n Instagram: ${insta}\n Meu WhatsApp: ${wpp}\n Objetivo: ${obj}\n\nAguardo o contato da equipe. Obrigado!`
+            );
+            const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${msgWpp}`;
 
-                        // Codifica o texto para formato de URL
-                        const textoEncoded = encodeURIComponent(textoWhats);
-                        const urlWhatsapp = `https://wa.me/${numeroWhats}?text=${textoEncoded}`;
+            // ── 3. Sucesso — SweetAlert2 ──
+            await Swal.fire({
+                icon: 'success',
+                title: 'Solicitação enviada! 🚀',
+                html: `
+                    <p style="color:#e9d5ff; font-size:0.9rem; margin-bottom:12px;">
+                        <strong>${nome}</strong>, seu formulário chegou ao Altivare Group com sucesso!<br><br>
+                        Agora você será redirecionado ao WhatsApp para confirmar sua avaliação gratuita. 😊
+                    </p>
+                `,
+                confirmButtonText: 'Ir para o WhatsApp →',
+                background: '#31154c',
+                color: '#e9d5ff',
+                confirmButtonColor: '#8a4cb8',
+                iconColor: '#b37de6',
+            });
 
-                        // Abre o WhatsApp em uma nova aba
-                        window.open(urlWhatsapp, '_blank');
-                    }
-                });
+            // ── 4. Redireciona para WhatsApp ──
+            window.open(whatsappURL, '_blank');
 
-                // Reseta o formulário após o sucesso
-                this.reset();
-            } else {
-                // Se o Web3Forms responder com algum erro interno (ex: chave inválida)
-                console.log(json);
-                throw new Error(json.message);
-            }
-        })
-        .catch((error) => {
+            // ── 5. Reseta o formulário ──
+            form.reset();
+
+        } catch (error) {
             console.error('Erro ao enviar:', error);
-            
+
             Swal.fire({
                 icon: 'error',
-                title: 'Ops...',
-                text: 'Houve um problema ao enviar o e-mail, mas você pode nos chamar direto no WhatsApp!',
-                confirmButtonText: 'Chamar no WhatsApp'
-            }).then(() => {
-                const numeroWhats = '5511920514195';
-                window.open(`https://wa.me/${numeroWhats}?text=Olá, tentei enviar o formulário no site mas deu erro. Quero atendimento!`, '_blank');
+                title: 'Ops! Algo deu errado.',
+                html: `
+                    <p style="color:#e9d5ff; font-size:0.9rem;">
+                        Não foi possível enviar sua solicitação agora.<br>
+                        Tente novamente ou entre em contato diretamente pelo WhatsApp. 🙏
+                    </p>
+                `,
+                confirmButtonText: 'Fechar',
+                background: '#31154c',
+                color: '#e9d5ff',
+                confirmButtonColor: '#8a4cb8',
+                iconColor: '#f87171',
             });
-        });
+        } finally {
+            // Restaura botão
+            btn.disabled = false;
+            btn.innerHTML = 'Enviar Solicitação para Altivare Group <i class="fa-solid fa-paper-plane text-xs"></i>';
+        }
     });
 });
 
