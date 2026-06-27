@@ -102,25 +102,14 @@ $(document).ready(function() {
         }
     });
 
-    // ─────────────────────────────────────────────
-    // CONFIGURAÇÃO EMAILJS
-    // 1. Crie conta gratuita em: https://www.emailjs.com/
-    // 2. Crie um Email Service conectado ao Gmail (altivaregroup@gmail.com)
-    // 3. Crie um Email Template com as variáveis: {{nome}}, {{whatsapp}}, {{instagram}}, {{objetivo}}
-    // 4. Substitua os 3 valores abaixo pelos seus IDs reais
-    // ─────────────────────────────────────────────
-    const EMAILJS_PUBLIC_KEY  = 'zSdvNmYne9naRgQjm';   // Account > API Keys
-    const EMAILJS_SERVICE_ID  = 'service_o4kw1u9';   // Email Services > Service ID
-    const EMAILJS_TEMPLATE_ID = 'template_n1psx9d';  // Email Templates > Template ID
+    const EMAILJS_PUBLIC_KEY  = 'zSdvNmYne9naRgQjm';
+    const EMAILJS_SERVICE_ID  = 'service_o4kw1u9';
+    const EMAILJS_TEMPLATE_ID = 'template_n1psx9d';
 
-    const WHATSAPP_NUMBER = '5511920514195'; // Número do responsável (com DDI 55)
+    const WHATSAPP_NUMBER = '5511920514195';
 
-    // Inicializa EmailJS
     emailjs.init(EMAILJS_PUBLIC_KEY);
 
-    // ─────────────────────────────────────────────
-    // SUBMIT DO FORMULÁRIO
-    // ─────────────────────────────────────────────
     document.getElementById('contactForm').addEventListener('submit', async function (e) {
         e.preventDefault();
 
@@ -131,7 +120,6 @@ $(document).ready(function() {
         const insta   = form.instagram.value.trim();
         const obj     = form.objetivo.value;
 
-        // Loading
         btn.disabled = true;
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> Enviando...';
 
@@ -146,7 +134,6 @@ $(document).ready(function() {
         });
 
         try {
-            // ── 1. Envia e-mail via EmailJS ──
             await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                 nome:      nome,
                 whatsapp:  wpp,
@@ -154,13 +141,11 @@ $(document).ready(function() {
                 objetivo:  obj,
             });
 
-            // ── 2. Monta mensagem do WhatsApp ──
             const msgWpp = encodeURIComponent(
                 `Olá, Altivare Group! \n\nMeu nome é *${nome}* e gostaria de solicitar uma *avaliação gratuita* para minha empresa.\n\n Instagram: ${insta}\n Meu WhatsApp: ${wpp}\n Objetivo: ${obj}\n\nAguardo o contato da equipe. Obrigado!`
             );
             const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${msgWpp}`;
 
-            // ── 3. Sucesso — SweetAlert2 ──
             await Swal.fire({
                 icon: 'success',
                 title: 'Solicitação enviada! 🚀',
@@ -177,10 +162,8 @@ $(document).ready(function() {
                 iconColor: '#b37de6',
             });
 
-            // ── 4. Redireciona para WhatsApp ──
             window.open(whatsappURL, '_blank');
 
-            // ── 5. Reseta o formulário ──
             form.reset();
 
         } catch (error) {
@@ -202,7 +185,6 @@ $(document).ready(function() {
                 iconColor: '#f87171',
             });
         } finally {
-            // Restaura botão
             btn.disabled = false;
             btn.innerHTML = 'Enviar Solicitação para Altivare Group <i class="fa-solid fa-paper-plane text-xs"></i>';
         }
